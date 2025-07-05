@@ -10,7 +10,8 @@ const apiRoutes = {
 
     //Rides routes
     requestRide: `${BASE_URL}/rides`,
-    getRideHistory: `${BASE_URL}/rides/history`
+    getRideHistory: `${BASE_URL}/rides/history`,
+    getRide: (id: string) => `${BASE_URL}/rides/${id}`
 }
 
 export default apiRoutes;
