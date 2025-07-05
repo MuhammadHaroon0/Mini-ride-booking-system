@@ -5,25 +5,34 @@ import Button from "../../components/Button";
 import useAuthStore from "../../stores/authStore";
 
 type FormError = {
-  name?: string
-  email?: string
-  password?: string
-  confirmPassword?: string
-}
+  name?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  vehicleType?: string;
+};
 
 type UserType = 'customer' | 'driver';
-
+interface FormData {
+  name: string,
+  email: string
+  password: string
+  confirmPassword: string
+  vehicleType: string | undefined,
+}
 const Signup = () => {
   const navigate = useNavigate();
   const { signup } = useAuthStore()
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userType, setUserType] = useState<UserType>('customer');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    vehicleType: "car",
   });
+
   const [errors, setErrors] = useState<FormError>({});
 
   const validateForm = () => {
@@ -48,11 +57,15 @@ const Signup = () => {
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Confirm password doesn't match with password";
 
+    if (userType === 'driver' && !formData.vehicleType) {
+      newErrors.vehicleType = "Vehicle type is required";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
 
@@ -87,13 +100,15 @@ const Signup = () => {
         ...formData,
         role: userType
       };
+      if (userType !== "driver")
+        requestData.vehicleType = undefined
 
       await signup(requestData)
       toast.success(`${userType === 'driver' ? 'Driver' : 'Customer'} account created successfully!`);
       navigate("/auth/login");
     } catch (error: any) {
       console.log(error);
-      toast.error(error.response?.data?.error ?? `Something went wrong with ${userType} registration.`);
+      toast.error(error.response?.data?.message ?? `Something went wrong with ${userType} registration.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -231,6 +246,26 @@ const Signup = () => {
               </div>
               {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
             </div>
+            {userType === 'driver' && (
+              <div className="mb-4">
+                <label htmlFor="vehicleType" className="block mb-2 text-sm font-medium">
+                  Vehicle Type
+                </label>
+                <select
+                  name="vehicleType"
+                  id="vehicleType"
+                  className="rounded-md shadow-xs bg-secondary border border-gray-300 focus:border-primary block text-black w-full px-5 py-3 disabled:opacity-70 disabled:cursor-not-allowed"
+                  value={formData.vehicleType}
+                  onChange={handleInputChange}
+                  disabled={isSubmitting}
+                >
+                  <option value="car">Car</option>
+                  <option value="bike">Bike</option>
+                  <option value="rickshaw">Rickshaw</option>
+                </select>
+                {errors.vehicleType && <p className="text-red-500 text-xs">{errors.vehicleType}</p>}
+              </div>
+            )}
             <p className="mb-4 text-sm">Already have an account?{" "}
               <span>
                 <Link to={'/auth/login'}>

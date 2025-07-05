@@ -10,7 +10,7 @@ export interface IUser extends Document<Types.ObjectId> {
     role: 'driver' | 'customer';
     rides: Types.ObjectId[];
     correctPassword: (candidatePassword: string) => Promise<boolean>;
-
+    vehicleType: string
 
 }
 
@@ -32,6 +32,10 @@ const userSchema = new Schema<IUser>(
         rides: [
             { type: Schema.Types.ObjectId, ref: 'Ride', default: [] },
         ],
+        vehicleType: {    //for drivers
+            type: String,
+            enum: ["car", "bike", "rickshaw"]
+        }
     },
     {
         toObject: { virtuals: true },

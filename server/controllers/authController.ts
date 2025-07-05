@@ -23,10 +23,13 @@ export const signUp = catchAsync(async (req: Request, res: Response, next: NextF
             return next(new AppError("Please provide both email and password!", 400));
         }
 
+        const user = await UserModel.findOne({ email: email })
+        if (user)
+            return next(new AppError("User with this email already exists!", 400));
+
         const newUser = new UserModel({
             ...req.body,
         });
-
         await newUser.save();
 
         res.status(200).json({
