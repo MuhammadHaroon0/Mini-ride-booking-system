@@ -7,6 +7,7 @@ import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
 import RequestRide from './pages/request-a-ride/RequestRide'
 import RidesHistory from './pages/ride-history/RidesHistory'
+import IndividualRide from './pages/individual-ride/IndividualRide'
 
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
         <Route element={<Login />} path='/auth/login' />
         <Route element={<Signup />} path='/auth/signup' />
         <Route element={<RequestRide />} path='/request-a-ride' />
-        <Route element={<RidesHistory />} path='/' />
+        <Route element={<RidesHistory />} path='/ride-history' />
+        <Route element={<IndividualRide />} path='/ride/:id' />
       </Routes>
       <Footer />
     </>

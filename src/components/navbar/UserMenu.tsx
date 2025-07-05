@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
+import Button from "../Button";
 
 interface UserMenuProps {
     currentUser: Record<string, any> | null;
@@ -25,20 +26,19 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             <div className="flex flex-row w-full items-center justify-between ">
                 <div className="flex ">
 
-                    <NavItem label={"Buy"} link={'/'} />
+                    {currentUser && <NavItem label={"Ride History"} link={'/ride-history'} />}
                     <NavItem label={"Sell"} link={'/'} />
 
                     <NavItem label={"Find a dealership"} link={'/'} />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
 
-                    <div className="bg-theme1 text-white rounded-3xl ">
-                        <Link to={'/'}>
-                            <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-green-500 transition cursor-pointer">
-                                Place Ad
-                            </div>
+                    {currentUser && <div className="bg-theme1 text-white rounded-3xl ">
+                        <Link to={'/request-a-ride'}>
+                            <Button label="Request a ride"
+                                className="rounded-full" />
                         </Link>
-                    </div>
+                    </div>}
                     <div onClick={toggleOpen} className="sm:p-4 xs:p-3 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition">
                         <AiOutlineMenu />
                         <div className="hidden md:block">
@@ -54,24 +54,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         {currentUser ? (
                             <>
                                 <MenuItem
-                                    onClick={() => navigate("/chat")}
-                                    label="My chats"
+                                    onClick={() => navigate("/request-a-ride")}
+                                    label="Request a ride"
                                 />
                                 <MenuItem
-                                    onClick={() => navigate("/followers")}
-                                    label="My Connections"
+                                    onClick={() => navigate("/ride-history")}
+                                    label="Ride History"
                                 />
 
-
-                                <MenuItem
-                                    onClick={() => navigate("/profile")}
-                                    label="My Profile"
-                                />
-                                <MenuItem
-                                    onClick={() => navigate("/auth/login")}
-                                    label="Login"
-                                />
-                                <hr />
                                 <MenuItem
                                     onClick={() => navigate('/')}
                                     label="Logout"
