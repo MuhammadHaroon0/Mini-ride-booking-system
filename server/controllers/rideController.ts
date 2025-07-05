@@ -33,6 +33,13 @@ export const getRide = catchAsync(async (req: Request, res: Response, next: Next
     }
     return res.status(201).json({ status: "success", doc });
 });
+export const getRideHistory = catchAsync(async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+
+    const doc = await RideModel.find({ user: req.user.id })
+        .populate("driver", "name email");
+
+    return res.status(201).json({ status: "success", doc });
+});
 
 export const changeRideStatus = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 

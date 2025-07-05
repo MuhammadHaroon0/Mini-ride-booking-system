@@ -7,6 +7,10 @@ const apiRoutes = {
     signup: `${BASE_URL}/users/signup`,
     logout: `${BASE_URL}/users/logout`,
     getMe: `${BASE_URL}/users/get-me`,
+
+    //Rides routes
+    requestRide: `${BASE_URL}/rides`,
+    getRideHistory: `${BASE_URL}/rides/history`
 }
 
 export default apiRoutes;

@@ -3,19 +3,20 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+import apiRoutes from "../../utils/apiRoutes";
 
 interface RideBookingFormData {
     pickupLocation: string;
     dropOffLocation: string;
     rideType: RideType;
-    fare?: number
+    proposedFare?: number
 }
 
 interface FormError {
     pickupLocation?: string;
     dropOffLocation?: string;
     rideType?: string;
-    fare?: number
+    proposedFare?: number
 }
 
 type RideType = 'bike' | 'car' | 'rickshaw';
@@ -80,7 +81,7 @@ const RequestRide = () => {
         if (!formData.rideType) {
             newErrors.rideType = "Please select a ride type";
         }
-        if (!formData.fare) {
+        if (!formData.proposedFare) {
             newErrors.rideType = "Please enter your proposed fare";
         }
 
@@ -124,11 +125,9 @@ const RequestRide = () => {
         if (!validateForm()) {
             return;
         }
-
         setIsSubmitting(true);
-
         try {
-            await axios.post("/api/rides/request", formData);
+            await axios.post(apiRoutes.requestRide, formData);
 
             toast.success("Ride requested successfully! Looking for nearby drivers...", {
                 duration: 4000,
@@ -138,10 +137,10 @@ const RequestRide = () => {
                 pickupLocation: "",
                 dropOffLocation: "",
                 rideType: "car",
-                fare: 0
+                proposedFare: 0
             });
 
-            navigate(`/rides-history`);
+            navigate(`/ride-history`);
 
         } catch (error: any) {
             console.error("Ride booking error:", error);
@@ -150,9 +149,7 @@ const RequestRide = () => {
                 error.response?.data?.message ||
                 "Failed to book ride. Please try again.";
 
-            toast.error(errorMessage, {
-                duration: 4000,
-            });
+            toast.error(errorMessage);
         } finally {
             setIsSubmitting(false);
         }
@@ -261,25 +258,25 @@ const RequestRide = () => {
                     <div className="mb-4">
                         <div>
                             <label
-                                htmlFor="fare"
+                                htmlFor="proposedFare"
                                 className="block mb-2 text-sm font-medium"
                             >
                                 Your proposed fare
                             </label>
                             <input
                                 type="text"
-                                name="fare"
-                                id="fare"
+                                name="proposedFare"
+                                id="proposedFare"
                                 className="shadow-xs  border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md  block text-black w-full px-5 py-3 disabled:opacity-70 disabled:cursor-not-allowed"
                                 placeholder="200"
-                                value={formData.fare}
+                                value={formData.proposedFare}
                                 onChange={handleInputChange}
                                 disabled={isSubmitting}
                                 required
                             />
                         </div>
-                        {errors.fare && (
-                            <p className="text-red-500 text-xs mt-1">{errors.fare}</p>
+                        {errors.proposedFare && (
+                            <p className="text-red-500 text-xs mt-1">{errors.proposedFare}</p>
                         )}
                     </div>
 

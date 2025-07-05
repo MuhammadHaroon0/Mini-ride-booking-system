@@ -39,16 +39,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             <div className="flex flex-row w-full items-center justify-between ">
                 <div className="flex ">
 
-                    {currentUser && <NavItem label={"Ride History"} link={'/ride-history'} />}
-                    <NavItem label={"Sell"} link={'/'} />
+                    {currentUser && currentUser.role === "customer" && <NavItem label={"Ride History"} link={'/ride-history'} />}
 
-                    <NavItem label={"Find a dealership"} link={'/'} />
                 </div>
                 <div className="flex gap-2 items-center">
 
                     {currentUser && <div className="bg-theme1 text-white rounded-3xl ">
-                        <Link to={'/request-a-ride'}>
-                            <Button label="Request a ride"
+                        <Link to={currentUser.role === "customer" ? '/request-a-ride' : '/ride-requests'}>
+                            <Button label={currentUser.role === "customer" ? "Request a ride" : "Ride requests"}
                                 className="rounded-full" />
                         </Link>
                     </div>}
@@ -66,14 +64,25 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     <div className="flex flex-col cursor-pointer">
                         {currentUser ? (
                             <>
-                                <MenuItem
-                                    onClick={() => navigate("/request-a-ride")}
-                                    label="Request a ride"
-                                />
-                                <MenuItem
-                                    onClick={() => navigate("/ride-history")}
-                                    label="Ride History"
-                                />
+                                {currentUser.role === "customer" ?
+                                    <>
+                                        <MenuItem
+                                            onClick={() => navigate("/request-a-ride")}
+                                            label="Request a ride"
+                                        />
+                                        <MenuItem
+                                            onClick={() => navigate("/ride-history")}
+                                            label="Ride History"
+                                        />
+                                    </>
+                                    :
+                                    <>
+                                        <MenuItem
+                                            onClick={() => navigate("/ride-requests")}
+                                            label="Ride requests"
+                                        />
+                                    </>
+                                }
 
                                 <MenuItem
                                     onClick={handleLogout}

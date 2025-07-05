@@ -70,9 +70,12 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      await login(formData)
+      const user = await login(formData)
       toast.success("Success!");
-      navigate("/profile");
+      if (user.role === "driver")
+        navigate("/ride-requests");
+      else
+        navigate("/request-a-ride");
     } catch (error: any) {
       console.error("Login error:", error);
       toast.error(error.response.data.message || "Something went wrong during login");

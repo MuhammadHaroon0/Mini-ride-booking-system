@@ -9,6 +9,7 @@ export interface IRide extends Document<Types.ObjectId> {
     createdAt?: Date;
     updatedAt?: Date;
     user: Types.ObjectId;
+    driver: Types.ObjectId;
 }
 
 const rideSchema = new Schema<IRide>(
@@ -25,9 +26,11 @@ const rideSchema = new Schema<IRide>(
         status: {
             type: String,
             enum: ['completed', "in_progress", "accepted", "requested"],
+            default: "requested",
             message: "Invalid status!"
         },
-        user: { type: Schema.Types.ObjectId, ref: 'User' }
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        driver: { type: Schema.Types.ObjectId, ref: 'User' },
     },
     { timestamps: true }
 );

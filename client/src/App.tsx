@@ -27,7 +27,7 @@ function App() {
         <Route element={<RequestRide />} path='/request-a-ride' />
         <Route element={<RidesHistory />} path='/ride-history' />
         <Route element={<IndividualRide />} path='/ride/:id' />
-        <Route element={<RideRequests />} path='/' />
+        <Route element={<RideRequests />} path='/ride-requests' />
       </Routes>
       <Footer />
     </>

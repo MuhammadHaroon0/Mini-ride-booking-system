@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import Button from "../../components/Button";
 import RideItem from "./RideItem";
 import type { Ride } from "../../types";
+import apiRoutes from "../../utils/apiRoutes";
 
 
 
@@ -14,7 +15,6 @@ interface RideListProps {
 }
 
 const RidesHistory: React.FC<RideListProps> = ({
-    userId,
     showHistory = false,
     maxHeight = "400px"
 }) => {
@@ -22,21 +22,14 @@ const RidesHistory: React.FC<RideListProps> = ({
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-
-
-
-
     const fetchRides = async () => {
         setLoading(true);
         setError(null);
 
         try {
-            const endpoint = showHistory ? '/api/rides/history' : '/api/rides/current';
-            const response = await axios.get(endpoint, {
-                params: userId ? { userId } : undefined
-            });
+            const response = await axios.get(apiRoutes.getRideHistory);
 
-            setRides(response.data);
+            setRides(response.data.doc);
         } catch (err: any) {
             const errorMessage = err.response?.data?.error || 'Failed to fetch rides';
             setError(errorMessage);
@@ -46,70 +39,9 @@ const RidesHistory: React.FC<RideListProps> = ({
         }
     };
 
-
-
-    // useEffect(() => {
-    //     fetchRides();
-    // }, [showHistory, userId]);
-
     useEffect(() => {
-        const mockRides: Ride[] = [
-            {
-                id: '1',
-                pickupLocation: 'Mall Road',
-                dropOffLocation: 'Airport',
-                rideType: 'car',
-                status: 'completed',
-                fare: 250,
-                driverName: 'Ahmed Khan',
-                requestedAt: '2024-01-15T10:30:00Z',
-                completedAt: '2024-01-15T11:15:00Z',
-                estimatedTime: '45 min'
-            },
-            {
-                id: '2',
-                pickupLocation: 'City Center',
-                dropOffLocation: 'Model Town',
-                rideType: 'bike',
-                status: 'in_progress',
-                fare: 80,
-                driverName: 'Ali Hassan',
-                requestedAt: '2024-01-16T14:20:00Z',
-                estimatedTime: '20 min'
-            },
-            {
-                id: '3',
-                pickupLocation: 'University',
-                dropOffLocation: 'Railway Station',
-                rideType: 'rickshaw',
-                status: 'requested',
-                fare: 120,
-                requestedAt: '2024-01-16T15:45:00Z',
-                estimatedTime: '30 min'
-            },
-            {
-                id: '4',
-                pickupLocation: 'Hospital',
-                dropOffLocation: 'Industrial Area',
-                rideType: 'car',
-                status: 'cancelled',
-                fare: 180,
-                requestedAt: '2024-01-14T09:15:00Z',
-                estimatedTime: '35 min'
-            },
-            {
-                id: '4',
-                pickupLocation: 'Hospital',
-                dropOffLocation: 'Industrial Area',
-                rideType: 'car',
-                status: 'accepted',
-                fare: 180,
-                requestedAt: '2024-01-14T09:15:00Z',
-                estimatedTime: '35 min'
-            }
-        ];
-        setRides(mockRides);
-    }, []);
+        fetchRides();
+    }, [showHistory]);
 
     if (loading) {
         return (
@@ -164,7 +96,7 @@ const RidesHistory: React.FC<RideListProps> = ({
                     </div>
                 ) : (
                     <div className="divide-y divide-gray-200">
-                        {rides.map((ride) => <RideItem key={ride.id} ride={ride} fetchRides={fetchRides} />
+                        {rides.map((ride) => <RideItem key={ride._id} ride={ride} />
                         )}
                     </div>
                 )}

@@ -35,7 +35,7 @@ const useAuthStore = create<AuthState>()(
                     console.log(response);
 
                     set({ user: response.data.user });
-                    return response.data.data
+                    return response.data.user
                 } catch (error: any) {
                     throw error;
                 } finally {

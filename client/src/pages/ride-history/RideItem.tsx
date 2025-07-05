@@ -1,15 +1,12 @@
 import React from 'react'
 import type { Ride } from '../../types';
-import axios from 'axios';
-import toast from 'react-hot-toast';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 
 interface RideItemsProps {
     ride: Ride;
-    fetchRides: () => void
 }
-const RideItem: React.FC<RideItemsProps> = ({ ride, fetchRides }) => {
+const RideItem: React.FC<RideItemsProps> = ({ ride }) => {
 
     const navigate = useNavigate()
 
@@ -62,20 +59,7 @@ const RideItem: React.FC<RideItemsProps> = ({ ride, fetchRides }) => {
     };
 
     const handleViewRide = (rideId: string) => {
-        // Navigate to ride details page or show modal
-        console.log(`Viewing ride: ${rideId}`);
         navigate(`/ride/${rideId}`);
-    };
-
-    const handleCancelRide = async (rideId: string) => {
-        try {
-            await axios.put(`/api/rides/${rideId}/cancel`);
-            toast.success('Ride cancelled successfully');
-            fetchRides(); // Refresh the list
-        } catch (err: any) {
-            const errorMessage = err.response?.data?.error || 'Failed to cancel ride';
-            toast.error(errorMessage);
-        }
     };
 
     const formatDate = (dateString: string) => {
@@ -87,18 +71,17 @@ const RideItem: React.FC<RideItemsProps> = ({ ride, fetchRides }) => {
         });
     };
 
-    const formatTime = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    };
+    // const formatTime = (dateString: string) => {
+    //     const date = new Date(dateString);
+    //     return date.toLocaleTimeString('en-US', {
+    //         hour: '2-digit',
+    //         minute: '2-digit'
+    //     });
+    // };
 
     const statusConfig = getStatusConfig(ride.status);
-    const canCancel = ride.status === 'requested' || ride.status === 'accepted';
     return (
-        <div key={ride.id} className="p-4 hover:bg-gray-50 transition-colors">
+        <div key={ride._id} className="p-4 hover:bg-gray-50 transition-colors">
             <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:items-center md:justify-between">
                 {/* Left side - Ride info */}
                 <div className="flex-1 min-w-0">
@@ -115,7 +98,7 @@ const RideItem: React.FC<RideItemsProps> = ({ ride, fetchRides }) => {
                                 </span>
                             </div>
                             <div className="flex items-center space-x-4 text-sm text-gray-500 mt-1">
-                                <span>Due on {formatDate(ride.requestedAt)}</span>
+                                <span>Due on {formatDate(ride.createdAt)}</span>
                                 {ride.driverName && (
                                     <span>Driver: {ride.driverName}</span>
                                 )}
@@ -126,7 +109,7 @@ const RideItem: React.FC<RideItemsProps> = ({ ride, fetchRides }) => {
                     <div className="flex items-center justify-between">
 
                         <div className="text-sm text-gray-500">
-                            Rs. {ride.fare}
+                            Rs. {ride.proposedFare}
                         </div>
                     </div>
                 </div>
@@ -135,22 +118,9 @@ const RideItem: React.FC<RideItemsProps> = ({ ride, fetchRides }) => {
                     <Button
                         label="View details"
                         intent="secondary"
-                        onClick={() => handleViewRide(ride.id)}
+                        onClick={() => handleViewRide(ride._id)}
                         className="px-3 py-1.5 text-sm  rounded-md "
                     />
-
-
-                    {canCancel && (
-                        <Button
-                            label="Cancel"
-                            intent="secondary"
-                            onClick={() => handleCancelRide(ride.id)}
-                            className="px-3 py-1.5 text-sm rounded-md "
-                        />
-
-                    )}
-
-
                 </div>
             </div>
         </div>

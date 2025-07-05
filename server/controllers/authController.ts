@@ -98,6 +98,7 @@ export const logout = catchAsync(async (req: Request, res: Response, next: NextF
 export const protect = catchAsync(async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
 
     const token = req.cookies.jwt;
+    console.log(token);
 
     if (!token) return next(new AppError("Please provide auth token!", 401));
 
