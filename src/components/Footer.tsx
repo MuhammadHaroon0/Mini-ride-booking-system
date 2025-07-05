@@ -3,7 +3,7 @@ const Footer = () => {
   return (
 
 
-    <div className="bg-slate-50 text-black border shadow-md border-gray-300 mt-8">
+    <div className="bg-slate-50 text-black border shadow-md border-gray-300">
 
       <div className="mx-auto max-w-screen-xl space-y-5 py-5 px-4 sm:px-6 ">
         <div className="sm:flex sm:items-center sm:justify-between">

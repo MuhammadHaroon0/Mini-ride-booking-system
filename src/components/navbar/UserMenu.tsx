@@ -20,10 +20,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         setIsOpen((value) => !value);
     }, [])
 
-
-
-
-
     return (
         <div className="relative w-full">
             <div className="flex flex-row w-full items-center justify-between ">
@@ -72,7 +68,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                     label="My Profile"
                                 />
                                 <MenuItem
-                                    onClick={() => navigate("/login")}
+                                    onClick={() => navigate("/auth/login")}
                                     label="Login"
                                 />
                                 <hr />
@@ -84,11 +80,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         ) : (
                             <>
                                 <MenuItem
-                                    onClick={() => navigate('/login')}
+                                    onClick={() => navigate('/auth/login')}
                                     label="Login"
                                 />
                                 <MenuItem
-                                    onClick={() => navigate('/signup')}
+                                    onClick={() => navigate('/auth/signup')}
                                     label="Sign up"
                                 />
                             </>
