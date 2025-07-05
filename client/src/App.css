@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: oklch(0.72 0.11 178);
+    --color-tertiary: oklch(0.72 0.11 150);
+    --color-secondary: #F8FAFC;
+
+}
+
+@layer components {
+    input {
+        @apply focus:outline-none focus:ring-0 focus:border-primary;
+    }
+}
