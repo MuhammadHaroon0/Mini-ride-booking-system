@@ -1,18 +1,15 @@
-import Button from "../../components/Button";
-import type { RideRequest } from "../../types";
+import Button from "./Button";
+import type { RideRequest } from "../types";
 
-
-
-
-// Single Ride Card Component
 interface RideCardProps {
     ride: RideRequest;
     onAccept: (rideId: string) => void;
-    onReject: (rideId: string) => void;
+    onReject?: (rideId: string) => void;
     isProcessing: boolean;
+    type?: string
 }
 
-const RideCard: React.FC<RideCardProps> = ({ ride, onAccept, onReject, isProcessing }) => {
+const RideCard: React.FC<RideCardProps> = ({ ride, onAccept, onReject, isProcessing, type = "Accept" }) => {
     const getRideIcon = (rideType: string) => {
         switch (rideType) {
             case 'bike': return '🏍️';
@@ -43,15 +40,15 @@ const RideCard: React.FC<RideCardProps> = ({ ride, onAccept, onReject, isProcess
                 <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                         <span className="text-blue-600 font-semibold text-lg">
-                            {ride.customerName.charAt(0).toUpperCase()}
+                            {ride.user.name.charAt(0).toUpperCase()}
                         </span>
                     </div>
                     <div>
-                        <h3 className="font-semibold text-gray-900">{ride.customerName}</h3>
+                        <h3 className="font-semibold text-gray-900">{ride.user.name}</h3>
                         <div className="flex items-center space-x-2">
 
                             <span className="text-sm text-gray-400">•</span>
-                            <span className="text-sm text-gray-500">{getTimeAgo(ride.requestedAt)}</span>
+                            <span className="text-sm text-gray-500">{getTimeAgo(ride.createdAt)}</span>
                         </div>
                     </div>
                 </div>
@@ -90,29 +87,22 @@ const RideCard: React.FC<RideCardProps> = ({ ride, onAccept, onReject, isProcess
                     <p className="text-lg font-bold text-green-600">PKR {ride.proposedFare}</p>
                     <p className="text-xs text-gray-500">Fare</p>
                 </div>
-                <div className="text-center">
-                    <p className="text-lg font-bold text-blue-600">{ride.distance} km</p>
-                    <p className="text-xs text-gray-500">Distance</p>
-                </div>
-                <div className="text-center">
-                    <p className="text-lg font-bold text-purple-600">{ride.estimatedTime}</p>
-                    <p className="text-xs text-gray-500">Est. Time</p>
-                </div>
+
             </div>
 
             {/* Action Buttons */}
             <div className="flex space-x-3">
-                <Button
+                {onReject && <Button
                     label={isProcessing ? 'Processing...' : 'Reject'}
-                    onClick={() => onReject(ride.id)}
+                    onClick={() => onReject(ride._id)}
                     disabled={isProcessing}
                     intent="secondary"
                     className="flex-1  py-3 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                />
+                />}
 
                 <Button
-                    label={isProcessing ? 'Processing...' : 'Accept'}
-                    onClick={() => onAccept(ride.id)}
+                    label={isProcessing ? 'Processing...' : type}
+                    onClick={() => onAccept(ride._id)}
                     disabled={isProcessing}
                     className="flex-1  text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                 />

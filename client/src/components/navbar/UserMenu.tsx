@@ -2,7 +2,7 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MenuItem from "./MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
@@ -28,11 +28,26 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         try {
             await logout()
             toast.success("Logged out successfully")
-            navigate('/')
+            navigate('/auth/login')
         } catch (error: any) {
             toast.error(error.response.data.message)
         }
     }
+    const menuRef = useRef<any>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener("click", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="relative w-full">
@@ -40,6 +55,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <div className="flex ">
 
                     {currentUser && currentUser.role === "customer" && <NavItem label={"Ride History"} link={'/ride-history'} />}
+                    {currentUser && currentUser.role === "driver" && <NavItem label={"Accepted rides"} link={'/accepted-rides'} />}
 
                 </div>
                 <div className="flex gap-2 items-center">
@@ -50,7 +66,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                 className="rounded-full" />
                         </Link>
                     </div>}
-                    <div onClick={toggleOpen} className="sm:p-4 xs:p-3 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition">
+                    <div onClick={toggleOpen} ref={menuRef}
+                        className="sm:p-4 xs:p-3 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition">
                         <AiOutlineMenu />
                         <div className="hidden md:block">
                             <Avatar src={currentUser?.image} />

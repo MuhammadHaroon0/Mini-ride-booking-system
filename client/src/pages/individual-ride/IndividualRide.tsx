@@ -82,7 +82,7 @@ const IndividualRide: React.FC = () => {
                     <span className="font-semibold">Fare:</span> Rs {ride?.proposedFare}
                 </div>
                 <div>
-                    <span className="font-semibold">Driver:</span> {ride?.driverName || 'Not assigned'}
+                    <span className="font-semibold">Driver:</span> {ride?.driver?.name || 'Not assigned'}
                 </div>
                 <div>
                     <span className="font-semibold">Requested At:</span> {ride?.createdAt && formatDate(ride?.createdAt)}

@@ -11,7 +11,10 @@ const apiRoutes = {
     //Rides routes
     requestRide: `${BASE_URL}/rides`,
     getRideHistory: `${BASE_URL}/rides/history`,
-    getRide: (id: string) => `${BASE_URL}/rides/${id}`
+    getRide: (id: string) => `${BASE_URL}/rides/${id}`,
+    changeRideStatus: (id: string) => `${BASE_URL}/rides/change-status/${id}`,
+    getRidesByZone: `${BASE_URL}/rides/zone`,
+    getRidesByStatus: `${BASE_URL}/rides/status`
 }
 
 export default apiRoutes;

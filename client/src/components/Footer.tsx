@@ -113,24 +113,18 @@ const Footer = () => {
             <p className="font-medium ">Services</p>
 
             <ul className="mt-6 space-y-4 text-sm">
+
+
               <li>
-                <a href="#" className=" transition hover:opacity-75"> 1on1 Coaching </a>
+                <a href="#" className=" transition hover:opacity-75"> Ride sharing </a>
               </li>
 
               <li>
-                <a href="#" className=" transition hover:opacity-75"> Company Review </a>
+                <a href="#" className=" transition hover:opacity-75"> Ride booking</a>
               </li>
 
               <li>
-                <a href="#" className=" transition hover:opacity-75"> Accounts Review </a>
-              </li>
-
-              <li>
-                <a href="#" className=" transition hover:opacity-75"> HR Consulting </a>
-              </li>
-
-              <li>
-                <a href="#" className=" transition hover:opacity-75"> SEO Optimisation </a>
+                <a href="#" className=" transition hover:opacity-75"> Ride History </a>
               </li>
             </ul>
           </div>
@@ -148,7 +142,7 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="#" className=" transition hover:opacity-75"> Accounts Review </a>
+                <a href="#" className=" transition hover:opacity-75"> Contact Us </a>
               </li>
             </ul>
           </div>
@@ -158,7 +152,7 @@ const Footer = () => {
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
-                <a href="#" className=" transition hover:opacity-75"> Contact </a>
+                <a href="#" className=" transition hover:opacity-75"> Terms and conditions </a>
               </li>
 
               <li>
@@ -166,7 +160,7 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="#" className=" transition hover:opacity-75"> Live Chat </a>
+                <a href="#" className=" transition hover:opacity-75"> Privacy policy </a>
               </li>
             </ul>
           </div>
@@ -187,9 +181,7 @@ const Footer = () => {
                 <a href="#" className=" transition hover:opacity-75"> Refund Policy </a>
               </li>
 
-              <li>
-                <a href="#" className=" transition hover:opacity-75"> Hiring Statistics </a>
-              </li>
+
             </ul>
           </div>
         </div>

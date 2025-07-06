@@ -99,8 +99,8 @@ const RideItem: React.FC<RideItemsProps> = ({ ride }) => {
                             </div>
                             <div className="flex items-center space-x-4 text-sm text-gray-500 mt-1">
                                 <span>Due on {formatDate(ride.createdAt)}</span>
-                                {ride.driverName && (
-                                    <span>Driver: {ride.driverName}</span>
+                                {ride.driver?.name && (
+                                    <span>Driver: {ride.driver.name}</span>
                                 )}
                             </div>
                         </div>

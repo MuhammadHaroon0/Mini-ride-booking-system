@@ -10,6 +10,7 @@ export interface IRide extends Document<Types.ObjectId> {
     updatedAt?: Date;
     user: Types.ObjectId;
     driver: Types.ObjectId;
+    rejectedBy: Types.ObjectId
 }
 
 const rideSchema = new Schema<IRide>(
@@ -31,6 +32,7 @@ const rideSchema = new Schema<IRide>(
         },
         user: { type: Schema.Types.ObjectId, ref: 'User' },
         driver: { type: Schema.Types.ObjectId, ref: 'User' },
+        rejectedBy: [Schema.Types.ObjectId]
     },
     { timestamps: true }
 );

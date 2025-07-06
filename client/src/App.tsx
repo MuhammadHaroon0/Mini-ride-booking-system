@@ -11,6 +11,7 @@ import IndividualRide from './pages/individual-ride/IndividualRide'
 import { RideRequests } from './pages/ride-requests/RideRequests'
 import { useLayoutEffect } from 'react'
 import useAuthStore from './stores/authStore'
+import AcceptedRides from './pages/accepted-rides/AcceptedRides'
 
 function App() {
   const { getMe } = useAuthStore()
@@ -28,6 +29,7 @@ function App() {
         <Route element={<RidesHistory />} path='/ride-history' />
         <Route element={<IndividualRide />} path='/ride/:id' />
         <Route element={<RideRequests />} path='/ride-requests' />
+        <Route element={<AcceptedRides />} path='/accepted-rides' />
       </Routes>
       <Footer />
     </>
