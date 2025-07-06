@@ -87,16 +87,16 @@ const Login = () => {
 
 
   return (
-    <div className="flex items-center justify-center h-full p-4 lg:p-0 mt-8">
+    <div className="flex items-center justify-center h-full p-4 lg:p-0 my-8">
       <div className="flex w-full sm:w-8/12 lg:w-[840px] rounded-[30px] overflow-hidden">
         <div className="hidden lg:flex flex-1 bg-primary justify-center items-center text-white flex-col">
           <h1 className="text-6xl font-smooch-sans font-extrabold tracking-wider mb-5">
-            Summit
+            Worldly
           </h1>
           <p className="text-lg font-medium mb-2">
-            Your gateway to curated search
+            Your gateway to peaceful journey
           </p>
-          <p className="text-sm">Access, manage, contribute to the community</p>
+          <p className="text-sm">Request, manage, and enjoy seamless rides.</p>
         </div>
 
         <div className="flex-1 px-8 py-16 bg-white">

@@ -2,11 +2,18 @@
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import useAuthStore from "../../stores/authStore";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const Navbar: React.FC = ({ }) => {
     const { user } = useAuthStore()
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!user)
+            navigate("/auth/login")
 
+    }, [])
     return (
         <div className="w-full mx-auto bg-white z-10 sm:shadow-sm px-4 shadow-md 
 ">
