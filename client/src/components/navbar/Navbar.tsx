@@ -1,5 +1,4 @@
 
-import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import useAuthStore from "../../stores/authStore";
@@ -16,20 +15,14 @@ const Navbar: React.FC = ({ }) => {
             "
             >
                 <div className="hidden sm:flex w-full flex-row items-center gap-3 ">
-                    <Logo />
+                    <Logo currentUser={user} />
                     <UserMenu currentUser={user} />
                 </div>
                 <div className="sm:hidden flex flex-col gap-3">
                     <div className="flex flex-row items-center justify-between w-full">
-                        <Logo />
+                        <Logo currentUser={user} />
                         <div className="flex items-center">
-                            <div className="bg-theme1 text-white rounded-3xl ">
-                                <Link to={'/'} >
-                                    <div className="lg:hidden xs:block text-sm font-semibold py-3 px-4 rounded-full whitespace-nowrap hover:bg-green-500 transition cursor-pointer">
-                                        Place Ad
-                                    </div>
-                                </Link>
-                            </div>
+
                             <UserMenu currentUser={user} />
                         </div>
                     </div>

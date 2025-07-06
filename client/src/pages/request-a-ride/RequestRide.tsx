@@ -157,7 +157,7 @@ const RequestRide = () => {
 
     return (
         <div className="flex  w-full flex-row">
-            <div className="hidden md:block w-full bg-primary"></div>
+            <div className="hidden md:block w-full bg-[url(/hero.jpg)] bg-cover bg-center bg-no-repeat"></div>
             <div className=" w-full bg-white py-6 px-12 mt-8">
                 <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
                     Book Your Ride
