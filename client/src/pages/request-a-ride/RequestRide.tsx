@@ -43,19 +43,27 @@ const RequestRide = () => {
     const [errors, setErrors] = useState<FormError>({});
     const navigate = useNavigate()
     const locations: LocationOption[] = [
-        { value: "Mall Road", label: "Mall Road", zone: "center", },
-        { value: "Airport", label: "Airport", zone: "airport", },
-        { value: "City Center", label: "City Center", zone: "center", },
-        { value: "Model Town", label: "Model Town", zone: "residential", },
-        { value: "Johar Town", label: "Johar Town", zone: "residential", },
-        { value: "Garden Town", label: "Garden Town", zone: "residential", },
-        { value: "Industrial Area", label: "Industrial Area", zone: "industrial", },
-        { value: "Railway Station", label: "Railway Station", zone: "transport", },
-        { value: "University", label: "University", zone: "education", },
-        { value: "Hospital", label: "Hospital", zone: "medical", },
-        { value: "Stadium", label: "Stadium", zone: "sports", },
-        { value: "Bus Terminal", label: "Bus Terminal", zone: "transport", }
+        { value: "Mall Road", label: "Mall Road", zone: "Zone 1" },
+        { value: "Jail Road", label: "Jail Road", zone: "Zone 1" },
+        { value: "Fortress Stadium", label: "Fortress Stadium", zone: "Zone 1" },
+        { value: "Garhi Shahu", label: "Garhi Shahu", zone: "Zone 1" },
+
+        { value: "Bahria Town", label: "Bahria Town", zone: "Zone 2" },
+        { value: "Thokar Niaz Baig", label: "Thokar Niaz Baig", zone: "Zone 2" },
+        { value: "Shahkam Chowk", label: "Shahkam Chowk", zone: "Zone 2" },
+        { value: "Park View", label: "Park View", zone: "Zone 2" },
+
+        { value: "Johar Town", label: "Johar Town", zone: "Zone 3" },
+        { value: "Model Town", label: "Model Town", zone: "Zone 3" },
+        { value: "Township", label: "Township", zone: "Zone 3" },
+        { value: "Iqbal Town", label: "Iqbal Town", zone: "Zone 3" },
+
+        { value: "Dha", label: "Dha", zone: "Zone 4" },
+        { value: "Airport", label: "Airport", zone: "Zone 4" },
+        { value: "Barki Road", label: "Barki Road", zone: "Zone 4" },
+        { value: "Bhatta Chowk", label: "Bhatta Chowk", zone: "Zone 4" },
     ];
+
 
     const rideTypes: RideTypeOption[] = [
         { value: "bike", label: "Bike", icon: "🏍️" },
@@ -293,9 +301,7 @@ const RequestRide = () => {
                         <p className="text-sm text-gray-600">
                             <span className="font-medium">Route:</span> {formData.pickupLocation} → {formData.dropOffLocation}
                         </p>
-                        <p className="text-sm text-gray-600 mt-1">
-                            <span className="font-medium">Estimated Time:</span> 15-25 minutes
-                        </p>
+
                     </div>
                 )}
             </div>

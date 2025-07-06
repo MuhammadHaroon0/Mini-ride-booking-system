@@ -45,27 +45,30 @@ const AcceptedRides = () => {
     if (loading)
         return <Loading />
     return (
-        <div className="grid max-w-4xl mx-auto my-8 gap-6 md:grid-cols-2">
-            {
-                rides.length === 0 ? (
-                    <div className="mx-auto col-span-2 text-center py-12">
-                        <div className="text-6xl mb-4">🚗</div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">No rides available</h3>
-                        <p className="text-gray-600">
-                            No rides for now
-                        </p>
-                    </div>
-                ) : rides.map(ride => (
-                    <RideCard
-                        key={ride._id}
-                        ride={ride}
-                        onAccept={handleCompleteRide}
-                        type="Complete"
-                        isProcessing={processingRides.has(ride._id)}
-                    />
-                ))
-            }
-        </div>
+        <>
+            <h1 className="text-3xl font-semibold md:p-8 p-4 md:pl-12 pl-8">Accepted Rides</h1>
+            <div className="grid max-w-4xl mx-auto my-8 gap-6 md:grid-cols-2">
+                {
+                    rides.length === 0 ? (
+                        <div className="mx-auto col-span-2 text-center py-12">
+                            <div className="text-6xl mb-4">🚗</div>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-2">No rides available</h3>
+                            <p className="text-gray-600">
+                                No rides for now
+                            </p>
+                        </div>
+                    ) : rides.map(ride => (
+                        <RideCard
+                            key={ride._id}
+                            ride={ride}
+                            onAccept={handleCompleteRide}
+                            type="Complete"
+                            isProcessing={processingRides.has(ride._id)}
+                        />
+                    ))
+                }
+            </div>
+        </>
     )
 }
 

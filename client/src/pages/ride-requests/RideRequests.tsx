@@ -51,12 +51,10 @@ export const RideRequests = () => {
     const fetchRidesForZone = async (zone: string[]) => {
         try {
             setLoading(true);
-
             const response = await axios.post(apiRoutes.getRidesByZone, { zone });
             setRides(response.data.doc || []);
 
         } catch (error) {
-            console.error('Error fetching rides for zone:', error);
             toast.error('Failed to fetch ride requests for selected zone');
         } finally {
             setLoading(false);

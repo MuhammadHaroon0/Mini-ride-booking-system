@@ -17,7 +17,11 @@ type FormErrors = {
 
 const Login = () => {
   const navigate = useNavigate()
-  const { login } = useAuthStore()
+  const { login, user } = useAuthStore()
+  if (user && user.role === "driver")
+    navigate("/ride-requests")
+  else if (user)
+    navigate("/request-a-ride")
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<LoginFormInputs>({
     email: "",
