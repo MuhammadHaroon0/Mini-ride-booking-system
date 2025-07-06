@@ -18,7 +18,7 @@ export const signToken = (id: string, res: Response): string => {
         httpOnly: true,
         sameSite: process.env.NODE_ENV === 'production' ? 'none' as const : 'lax' as const, // <-- Dynamic sameSite
         secure: process.env.NODE_ENV === "production",
-        path: '/', // Explicitly set path
+        path: '/',
 
     };
 

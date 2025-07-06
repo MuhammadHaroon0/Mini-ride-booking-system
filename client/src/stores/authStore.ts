@@ -47,7 +47,7 @@ const useAuthStore = create<AuthState>()(
                 try {
                     await axios.post(apiRoutes.signup, credentials);
                 } catch (error: any) {
-                    throw error; // Rethrow the error
+                    throw error;
                 } finally {
                     set({ loading: false });
                 }
