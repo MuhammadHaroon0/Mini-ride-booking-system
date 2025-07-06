@@ -12,6 +12,10 @@ const Navbar: React.FC = ({ }) => {
     useEffect(() => {
         if (!user)
             navigate("/auth/login")
+        else if (user.role === "driver")
+            navigate("/ride-requests")
+        else
+            navigate("/request-a-ride")
 
     }, [])
     return (
